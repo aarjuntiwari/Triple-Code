@@ -1,4 +1,4 @@
-// Triple Code Backend Logic (Simulated, replace with real backend as needed)
+
 
 class UserDatabase {
   constructor() {
