@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Triple Code - Sign Up / Login</title>
+<style>
+  body {
+    background: #111;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  #auth-container {
+    background: #222;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 320px;
+    box-sizing: border-box;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #5a3ce6;
+  }
+  label {
+    display: block;
+    margin-top: 1rem;
+  }
+  input[type=text], input[type=password], input[type=email] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border-radius: 4px;
+    border: none;
+    box-sizing: border-box;
+  }
+  button {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    background: #5a3ce6;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #password-checklist {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    list-style: none;
+    padding-left: 0;
+  }
+  #password-checklist li {
+    margin: 0.3rem 0;
+    display: flex;
+    align-items: center;
+  }
+  #password-checklist li span {
+    margin-left: 0.5rem;
+  }
+  .valid {
+    color: #4CAF50;
+  }
+  .invalid {
+    color: #f44336;
+  }
+</style>
+</head>
+<body>
+  <div id="auth-container">
+    <h2>Triple Code Sign Up</h2>
+    <label for="username">Username</label>
+    <input type="text" id="username" autocomplete="username" />
+    
+    <label for="email">Email</label>
+    <input type="email" id="email" autocomplete="email" />
+    
+    <label for="password">Password</label>
+    <input type="password" id="password" autocomplete="new-password" />
+    
+    <ul id="password-checklist">
+      <li id="length" class="invalid">❌ <span>At least six characters</span></li>
+      <li id="complexity" class="invalid">❌ <span>Not a simple password</span></li>
+      <li id="numbers" class="invalid">❌ <span>At least two numbers</span></li>
+      <li id="case" class="invalid">❌ <span>One uppercase and one lowercase letter</span></li>
+    </ul>
+    
+    <button id="enter-btn" disabled>Enter</button>
+  </div>
+
+  <script>
+    const passwordInput = document.getElementById('password');
+    const enterBtn = document.getElementById('enter-btn');
+
+    const checklist = {
+      length: document.getElementById('length'),
+      complexity: document.getElementById('complexity'),
+      numbers: document.getElementById('numbers'),
+      case: document.getElementById('case')
+    };
+
+    function checkPassword() {
+      const val = passwordInput.value;
+
+      // Length >= 6
+      const lengthOk = val.length >= 6;
+      checklist.length.className = lengthOk ? 'valid' : 'invalid';
+      checklist.length.textContent = lengthOk ? '✔️ At least six characters' : '❌ At least six characters';
+
+      // Complexity (not simple): check for repeated or common passwords
+      const simplePasswords = ['password', '123456', 'abcdef', 'qwerty', 'letmein'];
+      const complexityOk = !simplePasswords.includes(val.toLowerCase()) && val.length > 0;
+      checklist.complexity.className = complexityOk ? 'valid' : 'invalid';
+      checklist.complexity.textContent = complexityOk ? '✔️ Not a simple password' : '❌ Not a simple password';
+
+      // At least two numbers
+      const numbersCount = val.replace(/[^0-9]/g, '').length;
+      const numbersOk = numbersCount >= 2;
+      checklist.numbers.className = numbersOk ? 'valid' : 'invalid';
+      checklist.numbers.textContent = numbersOk ? '✔️ At least two numbers' : '❌ At least two numbers';
+
+      // One uppercase and one lowercase letter
+      const hasUpper = /[A-Z]/.test(val);
+      const hasLower = /[a-z]/.test(val);
+      const caseOk = hasUpper && hasLower;
+      checklist.case.className = caseOk ? 'valid' : 'invalid';
+      checklist.case.textContent = caseOk ? '✔️ One uppercase and one lowercase letter' : '❌ One uppercase and one lowercase letter';
+
+      // Enable enter button only if all checks pass
+      enterBtn.disabled = !(lengthOk && complexityOk && numbersOk && caseOk);
+    }
+
+    passwordInput.addEventListener('input', checkPassword);
+
+    enterBtn.addEventListener('click', () => {
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = passwordInput.value;
+
+      if (!username || !email || !password) {
+        alert('Please fill all fields.');
+        return;
+      }
+
+      // Normally, here we send data to backend (which we will simulate)
+      alert('Sign up successful! (Simulated backend processing)');
+      // Reset form
+      document.getElementById('username').value = '';
+      document.getElementById('email').value = '';
+      passwordInput.value = '';
+      checkPassword();
+    });
+  </script>
+</body>
+</html>

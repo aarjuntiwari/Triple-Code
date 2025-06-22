@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Triple Code</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      background-color: #111;
+      color: #fff;
+      height: 100vh;
+      overflow: hidden;
+    }
+    aside {
+      width: 280px;
+      background-color: #1a1a1a;
+      padding: 1rem;
+      height: 100vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+      border-right: 2px solid #444;
+    }
+    aside h2 {
+      font-size: 1.5rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    aside button {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.7rem;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.25s ease;
+    }
+    aside button:hover,
+    aside button.active {
+      background-color: #5a3ce6;
+      color: #fff;
+    }
+    main {
+      flex-grow: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #151515, #2a2a4d);
+    }
+    section {
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    .home-header {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .home-sub {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .logo-pencil {
+      font-size: 3rem;
+      margin-top: 1rem;
+    }
+    .enter-button {
+      margin-top: 1rem;
+      background-color: #5a3ce6;
+      color: white;
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .enter-button:hover {
+      background-color: #704df0;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <h2>Triple Code</h2>
+    <button onclick="showSection('home')">🏠 Home</button>
+    <button onclick="showSection('code')">Code Away!</button>
+    <button onclick="showSection('projects')">Your Imagination. Your Creation.</button>
+    <button onclick="showSection('ai')">In a Jam? Use Triple Code's Very Own AI Assistance!</button>
+    <button onclick="showSection('theme')">Pick Your Theme!</button>
+    <button onclick="showSection('background')">Let's Party! Create Your Dream Background With Over 100 Colors!</button>
+    <button onclick="showSection('domain')">Cheap! Cheap! and Cheap! Get Your Own .com Domain for Just $4.99! It's A One-Time Payment Only!</button>
+    <button onclick="showSection('plans')">Get Triple the Work Done in Triple the Less Time With Triple Code's Upgrade Plans!</button>
+  </aside>
+  <main>
+    <section id="home" class="active">
+      <div class="home-header">Triple Code ✏️</div>
+      <div class="home-sub">Hello ________, how are you doing today?</div>
+      <div class="home-sub">Proceed to a section if you wish.</div>
+      <div class="home-sub"><em>"Code Your Imagination"</em></div>
+      <div class="logo-pencil">✏️</div>
+    </section>
+
+    <section id="signup">
+      <h2>Create Your Account</h2>
+      <form onsubmit="event.preventDefault(); handleSignup();">
+        <label>Email: <input type="email" required /></label><br /><br />
+        <label>Password: <input type="password" id="password" required oninput="validatePassword()" /></label>
+        <ul>
+          <li id="lengthCheck">❌ Your password must be at least six characters long</li>
+          <li id="simpleCheck">❌ Your password can't be simple</li>
+          <li id="numberCheck">❌ Your password must have at least two numbers</li>
+          <li id="caseCheck">❌ Your password must include one uppercase and one lowercase letter</li>
+        </ul>
+        <button type="submit" class="enter-button">Enter</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function validatePassword() {
+      const password = document.getElementById('password').value;
+      document.getElementById('lengthCheck').innerText = password.length >= 6 ? '✅ Password length is good' : '❌ Your password must be at least six characters long';
+      document.getElementById('simpleCheck').innerText = !['password', '123456', 'qwerty'].includes(password.toLowerCase()) ? '✅ Password is not too simple' : '❌ Your password can't be simple';
+      document.getElementById('numberCheck').innerText = (password.match(/\d/g) || []).length >= 2 ? '✅ Contains at least two numbers' : '❌ Your password must have at least two numbers';
+      document.getElementById('caseCheck').innerText = /[a-z]/.test(password) && /[A-Z]/.test(password) ? '✅ Includes upper & lower case letters' : '❌ Your password must include one uppercase and one lowercase letter';
+    }
+
+    function handleSignup() {
+      alert('Account creation complete!');
+    }
+  </script>
+</body>
+</html>
