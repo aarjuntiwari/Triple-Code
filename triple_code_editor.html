@@ -128,9 +128,19 @@
   </main>
 
   <script>
+    window.onload = () => {
+      document.querySelectorAll('aside button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('aside button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+    };
+
     function showSection(id) {
       document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+      const section = document.getElementById(id);
+      if (section) section.classList.add('active');
     }
 
     function validatePassword() {
@@ -147,4 +157,7 @@
   </script>
 </body>
 </html>
+
+   
+
 
