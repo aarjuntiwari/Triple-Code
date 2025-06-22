@@ -33,10 +33,4 @@ class UserDatabase {
 
 const tripleCodeDB = new UserDatabase();
 
-// Example usage
-/*
-const result = tripleCodeDB.createUser('arjun', 'arjun@example.com', 'MyPass123');
-console.log(result);
-const auth = tripleCodeDB.authenticate('arjun', 'MyPass123');
-console.log('Authenticated:', auth);
-*/
+
